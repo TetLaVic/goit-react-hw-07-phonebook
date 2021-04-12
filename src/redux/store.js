@@ -1,11 +1,9 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import contactsReducer from './ContactForm/ContactForm-reducer';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -13,23 +11,23 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
 // import persistReducer from 'redux-persist/es/persistReducer';
 
-const contactsPersistConfig = {
-  key: 'contacts',
-  storage,
-  blacklist: ['filter'],
-};
+// const contactsPersistConfig = {
+//   key: 'contacts',
+//   storage,
+//   blacklist: ['filter'],
+// };
 
-// const rootReducer = combineReducers({
-//   contacts: contactsReducer,
-// });
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+});
 
 // const store = createStore(rootReducer, composeWithDevTools());
-const rootReducer = {
-  contacts: persistReducer(contactsPersistConfig, contactsReducer),
-};
+// const rootReducer = {
+//   contacts: persistReducer(contactsPersistConfig, contactsReducer),
+// };
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -45,6 +43,6 @@ const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
 });
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
-export default { store, persistor };
+export default store;

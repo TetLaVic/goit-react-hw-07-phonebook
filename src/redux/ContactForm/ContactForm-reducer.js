@@ -2,6 +2,17 @@ import { combineReducers } from 'redux';
 // import types from './ContactForm-types';
 import { createReducer } from '@reduxjs/toolkit';
 import actions from './ContactForm-actions';
+const {
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+} = actions;
 
 // const itemsReducer = (state = [], { type, payload }) => {
 //   switch (type) {
@@ -26,14 +37,15 @@ import actions from './ContactForm-actions';
 // };
 
 const itemsReducer = createReducer([], {
-  [actions.addContact]: (state, { payload }) => {
+  [fetchContactsSuccess]: (state, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) => {
     if (state.find(contact => contact.name === payload.name)) {
       alert(`${payload.name} is already in contacts.`);
       return state;
     }
     return [...state, payload];
   },
-  [actions.deleteContact]: (state, { payload }) =>
+  [deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
@@ -47,12 +59,22 @@ const itemsReducer = createReducer([], {
 // };
 
 const filterReducer = createReducer('', {
-  [actions.filterChange]: (_, { payload }) => payload,
+  'ContactForm/filterChange': (_, { payload }) => payload,
+});
+
+const loading = createReducer(false, {
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
 });
 
 const contactsReducer = combineReducers({
   items: itemsReducer,
   filter: filterReducer,
+  loading,
 });
 
 export default contactsReducer;

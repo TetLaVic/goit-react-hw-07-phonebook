@@ -3,7 +3,7 @@ import ContactListItem from './ContactListItem/ContactListItem';
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 import { connect } from 'react-redux';
-import actions from '../../redux/ContactForm/ContactForm-actions';
+import operations from '../../redux/ContactForm/ContactForm-operations';
 
 class ContactList extends Component {
   render() {
@@ -43,7 +43,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onDeleteContact: contactId => dispatch(actions.deleteContact(contactId)),
+  onDeleteContact: contactId => dispatch(operations.deleteContact(contactId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
