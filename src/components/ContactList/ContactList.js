@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
 
 class ContactList extends Component {
+  componentDidMount() {
+    this.props.onLoad();
+  }
   render() {
     const { contactsList, onDeleteContact } = this.props;
     return (
@@ -44,6 +47,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDeleteContact: contactId => dispatch(operations.deleteContact(contactId)),
+  onLoad: () => dispatch(operations.fetchContacts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
