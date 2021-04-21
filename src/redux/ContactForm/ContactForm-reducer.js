@@ -59,7 +59,7 @@ const itemsReducer = createReducer([], {
 // };
 
 const filterReducer = createReducer('', {
-  'ContactForm/filterChange': (_, { payload }) => payload,
+  'ContactForm/FilterChange': (_, { payload }) => payload,
 });
 
 const loading = createReducer(false, {

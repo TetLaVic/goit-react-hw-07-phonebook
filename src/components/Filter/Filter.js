@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './Filter.module.css';
 import { connect } from 'react-redux';
 import actions from '../../redux/ContactForm/ContactForm-actions';
+import selectors from '../../redux/ContactForm/ContactForm-selectors';
 
 class Filter extends Component {
   render() {
@@ -31,7 +32,8 @@ Filter.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  filterState: state.contacts.filter,
+  filterState: selectors.getFilter(state),
+  // filterState: state.contacts.filter,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 import { connect } from 'react-redux';
 import operations from '../../redux/ContactForm/ContactForm-operations';
+import selectors from '../../redux/ContactForm/ContactForm-selectors';
 
 class ContactList extends Component {
   componentDidMount() {
@@ -34,15 +35,15 @@ ContactList.propTypes = {
   onDeleteContact: PropTypes.func.isRequired,
 };
 
-const getContactsToShow = ({ filter, items }) => {
-  const normalizedFilter = filter.toLowerCase();
-  return items.filter(({ name }) =>
-    name ? name.toLowerCase().includes(normalizedFilter) : false,
-  );
-};
+// const getContactsToShow = ({ filter, items }) => {
+//   const normalizedFilter = filter.toLowerCase();
+//   return items.filter(({ name }) =>
+//     name ? name.toLowerCase().includes(normalizedFilter) : false,
+//   );
+// };
 
 const mapStateToProps = state => ({
-  contactsList: getContactsToShow(state.contacts),
+  contactsList: selectors.getContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({
